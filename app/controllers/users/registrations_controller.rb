@@ -12,9 +12,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    user = User.create(sign_up_params)
+    if user.save
+      render json: {message: 'signed up successfully', user: user}, status: :created
+    else
+      render json: {errors: user.errors.full_messages}, status: :unprocessable_entity
+    end
+  end
 
   # GET /resource/edit
   # def edit

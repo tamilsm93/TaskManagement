@@ -19,6 +19,7 @@ class Users::SessionsController < Devise::SessionsController
 
   # DELETE /resource/sign_out
   def destroy
+    binding.pry
     sign_out(current_user)
     render json: {message: 'logged out successfully'}, status: :ok
   end
