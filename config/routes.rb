@@ -17,6 +17,16 @@ resources :categories, only: [:create, :index]
 
 get 'task/category/:id', to: 'tasks#category'
 
+resources :workspaces, only: [:create, :index]
+
+resources :memberships, only: [:create, :index]
+
+
+post 'workspaces/:id/', to: 'workspaces#add_member'
+
+
+post 'search/', to: 'tasks#search'
+
 
 # post 'categories', to: 'task_categories#create'
 end

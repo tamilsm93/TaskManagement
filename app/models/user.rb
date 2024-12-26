@@ -6,4 +6,6 @@ class User < ApplicationRecord
          :jwt_authenticatable, jwt_revocation_strategy: Devise::JWT::RevocationStrategies::Null
 
   has_many :tasks, foreign_key: :assignee_id
+  has_many :workspaces
+  has_many :memberships, through: :memberships
 end

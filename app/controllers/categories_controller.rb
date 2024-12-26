@@ -1,5 +1,7 @@
 class CategoriesController < ApplicationController
 
+	before_action :authenticate_user!
+	
 	def index
     	@tasks = Category.all
     end

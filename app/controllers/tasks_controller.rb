@@ -15,7 +15,7 @@ class TasksController < ApplicationController
 	def create
 		task = current_user.tasks.create(task_params)
 		if task.save
-			render json: {message: 'Task created successfull', task: task}, status: :created
+			render json: {message: 'Task created successfully', task: task}, status: :created
 		else
 			render json: {errors: task.errors.full_messages}, status: :unprocessable_entity
 		end
@@ -23,9 +23,9 @@ class TasksController < ApplicationController
 
 
 	def update
-		@task = current_user.tasks.find_by(params[:id])
-		if @task.update(task_params)
-			render json @task
+		task = current_user.tasks.find_by(params[:id])
+		if task.update(task_params)
+			render json: {message: 'Task updated successfully', task: task}
 		else
 			render json: {message: "check the fields"}
 		end
@@ -33,14 +33,37 @@ class TasksController < ApplicationController
 
 
 	def destroy
-		@task = current_user.tasks.find_by(params[:id])
-		@task.destroy
+		task = current_user.tasks.find_by(params[:id])
+		if task.destroy
+			render json: {message: 'Task deleted successfully', task: task}
+		else
+			render json: {errors: task.errors.full_messages}, status: :unprocessable_entity
+		end
 	end
 
 	def category
 		id = params[:id].to_i
 		tasks = current_user.tasks.find_by(category_id: id)
 		render json: {message: 'task based on category', tasks: tasks}
+	end
+
+
+	def search
+		tasks = Task.all
+		if params[:tasks][:title].present?
+			tasks = tasks.where(title: params[:tasks][:title])
+		elsif params[:tasks][:due_date].present? 
+			tasks = tasks.where(due_date: params[:tasks][:due_date])
+		elsif params[:tasks][:assignee_id].present?
+			tasks = tasks.where(assignee_id: params[:tasks][:assignee_id])
+		elsif
+			tasks = tasks.where(completion_status: params[:tasks][:completion_status])
+		elsif
+			tasks = tasks.where(description: params[:tasks][:description])
+		else
+			tasks = tasks.all
+		end
+		render json: tasks
 	end
 
 	private
