@@ -2,7 +2,6 @@ class MembershipsController < ApplicationController
 	before_action :authenticate_user!
 
     def index
-    	binding.pry
     	memberships = Membership.all
     		render json: {memberships: memberships }
     end

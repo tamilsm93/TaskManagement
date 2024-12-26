@@ -36,5 +36,11 @@ module TaskManagement
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+    config.action_mailer.delivery_method = :mailgun
+    config.action_mailer.mail_gun_settings = {
+      api_key: '2e68d0fb-a7000a22',
+      domain: 'sandbox9c09996c0de746fe868eb3ae502b9d25.mailgun.org'
+
+    }
   end
 end

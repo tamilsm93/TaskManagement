@@ -1,0 +1,7 @@
+
+
+<h1>Task Remainder</h1>
+
+<p>Hi <%= @task.assignee.name %> </p>
+<p>This is a reminder for your task: <%= @task.title %>.</p>
+<p>Due date: <%= @task.due_date.strftime('%A, %d %B %Y %H:%M') %></p>

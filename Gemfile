@@ -14,6 +14,7 @@ gem 'devise'
 gem 'responders'
 gem 'devise-jwt'
 gem 'kaminari'
+gem 'mailgun-ruby'
 gem 'pry'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7'

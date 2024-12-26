@@ -14,12 +14,25 @@ class Users::SessionsController < Devise::SessionsController
   def create
     user = warden.authenticate!(auth_options)
     sign_in(user)
+    otp = sent_otp(user)
+ 
     render json: {message: 'logged in successfully', user: user}, status: :ok
+  end
+
+  def otplogin
+    user_otp = params[:otp]
+    user.check_otp(otp)
+  end
+
+
+  def sent_otp(user)
+    # user  = User.find_by(email: params[:email])
+    binding.pry
+    user.generate_otp
   end
 
   # DELETE /resource/sign_out
   def destroy
-    binding.pry
     sign_out(current_user)
     render json: {message: 'logged out successfully'}, status: :ok
   end

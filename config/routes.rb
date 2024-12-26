@@ -27,6 +27,10 @@ post 'workspaces/:id/', to: 'workspaces#add_member'
 
 post 'search/', to: 'tasks#search'
 
+devise_scope :user do
+  post 'otplogin', to: 'users/sessions#otplogin'
+end
+
 
 # post 'categories', to: 'task_categories#create'
 end
