@@ -3,8 +3,12 @@ class TasksController < ApplicationController
 	before_action :authenticate_user!, only: [:create, :update, :destroy]
 
 	def index
-		tasks = current_user.tasks.all
-		render json: {message: 'Tasks', tasks: tasks}, status: :ok
+
+		binding.pry
+
+		tasks = current_user.tasks.page(params[:page]).per(2)
+		
+		render json: {message: 'Tasks', tasks: tasks}
 	end
 
 
@@ -33,8 +37,14 @@ class TasksController < ApplicationController
 		@task.destroy
 	end
 
+	def category
+		id = params[:id].to_i
+		tasks = current_user.tasks.find_by(category_id: id)
+		render json: {message: 'task based on category', tasks: tasks}
+	end
+
 	private
-		def task_params
-			params.require(:task).permit(:title, :description, :due_date, :priority, :remind_before_at,  :completion_status).merge(assignee_id: current_user.id)
-		end
+	def task_params
+		params.require(:task).permit(:title, :description, :due_date, :priority, :remind_before_at,  :completion_status, :category_id).merge(assignee_id: current_user.id)
+	end
 end

@@ -12,4 +12,7 @@ class Task < ApplicationRecord
   validates :remind_before_at, presence: true
 
 
+  belongs_to :category
+
+
 end

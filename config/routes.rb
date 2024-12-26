@@ -12,4 +12,11 @@ Rails.application.routes.draw do
   }
 
 resources :tasks
+resources :categories, only: [:create, :index]
+
+
+get 'task/category/:id', to: 'tasks#category'
+
+
+# post 'categories', to: 'task_categories#create'
 end

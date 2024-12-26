@@ -13,6 +13,7 @@ gem 'rack-cors'
 gem 'devise'
 gem 'responders'
 gem 'devise-jwt'
+gem 'kaminari'
 gem 'pry'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7'
