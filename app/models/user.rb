@@ -18,8 +18,6 @@ class User < ApplicationRecord
   end
 
   def check_otp(user_otp)
-        binding.pry
     self.otp_code == user_otp
-
   end
 end

@@ -14,8 +14,7 @@ class Users::SessionsController < Devise::SessionsController
   def create
     user = warden.authenticate!(auth_options)
     sign_in(user)
-    otp = sent_otp(user)
- 
+    sent_otp(user)
     render json: {message: 'logged in successfully', user: user}, status: :ok
   end
 
@@ -26,9 +25,21 @@ class Users::SessionsController < Devise::SessionsController
 
 
   def sent_otp(user)
-    # user  = User.find_by(email: params[:email])
-    binding.pry
+    user  = User.find_by(email: params[:email])
     user.generate_otp
+  end
+
+
+  def google_auth2
+
+    auth = request[env["credential"]]
+    user = User.find_or_create_by(email:) do |user|
+
+      user.email = ['email']
+      user.access_token = 
+
+    end
+
   end
 
   # DELETE /resource/sign_out

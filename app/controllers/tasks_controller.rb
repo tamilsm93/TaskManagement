@@ -3,11 +3,7 @@ class TasksController < ApplicationController
 	before_action :authenticate_user!, only: [:create, :update, :destroy]
 
 	def index
-
-		binding.pry
-
 		tasks = current_user.tasks.page(params[:page]).per(2)
-		
 		render json: {message: 'Tasks', tasks: tasks}
 	end
 
@@ -47,6 +43,17 @@ class TasksController < ApplicationController
 		render json: {message: 'task based on category', tasks: tasks}
 	end
 
+	def sort_tasks
+		tasks = Task.joins(:category).order('categories.name ASC').pluck('tasks.title', 'categories.name')
+
+		tasks = tasks.map do |task| {
+			task_title: task[0],
+			category_name: task[1]
+		}
+	end
+	render json: tasks
+	end
+
 
 	def search
 		tasks = Task.all
@@ -56,9 +63,9 @@ class TasksController < ApplicationController
 			tasks = tasks.where(due_date: params[:tasks][:due_date])
 		elsif params[:tasks][:assignee_id].present?
 			tasks = tasks.where(assignee_id: params[:tasks][:assignee_id])
-		elsif
+		elsif params[:tasks][:completion_status].present?
 			tasks = tasks.where(completion_status: params[:tasks][:completion_status])
-		elsif
+		elsif params[:tasks][:description].present?
 			tasks = tasks.where(description: params[:tasks][:description])
 		else
 			tasks = tasks.all

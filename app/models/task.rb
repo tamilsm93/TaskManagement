@@ -7,9 +7,8 @@ class Task < ApplicationRecord
   validates :description, presence: true
 
   validates :due_date, presence: true
-  # validates :priority, presence: true
-
-  # validates :remind_before_at, presence: true
+  validates :priority, presence: true
+  validates :remind_before_at, presence: true
   belongs_to :category
 
   before_save :set_remind_before_at

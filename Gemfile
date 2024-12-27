@@ -16,6 +16,9 @@ gem 'devise-jwt'
 gem 'kaminari'
 gem 'mailgun-ruby'
 gem 'pry'
+gem 'rspec-rails'
+gem 'factory_bot_rails'
+ gem 'google-apis-calendar_v3'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production

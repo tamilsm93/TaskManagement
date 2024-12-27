@@ -17,6 +17,8 @@ resources :categories, only: [:create, :index]
 
 get 'task/category/:id', to: 'tasks#category'
 
+get 'task/sort/', to: 'tasks#sort_tasks'
+
 resources :workspaces, only: [:create, :index]
 
 resources :memberships, only: [:create, :index]
